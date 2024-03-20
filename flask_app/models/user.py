@@ -1,4 +1,9 @@
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask import flash
+import re
+
+EMAIL_REGEX = re.compile(r"^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$")
+
 
 class User:
     DB = "users_db"
@@ -29,3 +34,23 @@ class User:
         results = connectToMySQL(cls.DB).query_db(query, data)
         print(results)
         return results[0]
+
+    @staticmethod
+    def validate_register(user):
+        is_valid = True
+        if len(user["first_name"]) < 2:
+            flash("First Name must be more than 2 characters")
+            is_valid = False
+        if len(user["last_name"]) < 2:
+            flash("Last Name must be more than 2 characters")
+            is_valid = False
+        if not EMAIL_REGEX.match(user["email"]):
+            flash("Invalid Email Address")
+            is_valid = False
+        if user["password"] != user["password_confirm"]:
+            flash("Passwords must match")
+            is_valid = False
+        if not re.fullmatch(r"[A-Za-z0-9@#$%^&+=]{8,}", user["password"]):
+            flash("Password must be 8 characters long")
+            is_valid = False
+        return is_valid

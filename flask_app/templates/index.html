@@ -1,61 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login/Register Now!</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='quartz.css')}}">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='quartz.css')}}"
+    />
+  </head>
+  <body>
     <div class="container d-flex justify-content-between mt-3 text-center">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h4 class="card-title">Not A Member?  Register Here!</h4>
-                <form action="/register" method="post">
-                <ul class="list-group list-group-flush form-control">
-                    <li class="list-group-item">
-                        <label for="first_name" class="form-label">First Name:</label>
-                        <input type="text" name="first_name" id="first_name" class="form-control">
-                    </li>
-                    <li class="list-group-item" class="form-label">
-                        <label for="last_name">Last Name:</label>
-                        <input type="text" name="last_name" id="last_name" class="form-control">
-                    </li>
-                    <li class="list-group-item" class="form-label">
-                        <label for="email">Email:</label>
-                        <input type="text" name="email" id="email" class="form-control">
-                    </li>
-                    <li class="list-group-item">
-                        <label for="inputPassword5" class="form-label">Password:</label>
-                        <input type="password" name="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
-                    </li>
-                    <li class="list-group-item">
-                        <label for="inputPassword5" class="form-label">Password Confirmation:</label>
-                        <input type="password" name="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
-                    </li>
-                </ul>
-                <input type="submit" class="btn btn-primary mt-3" value="Register!">
-                </form>
-            </div>
+      <div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h4 class="card-title">Not A Member? Register Here!</h4>
+          <form action="/register" method="post">
+            {% with messages = get_flashed_messages() %} {% if messages %} {%
+            for message in messages %}
+            <p class="text-center">{{message}}</p>
+            {% endfor %} {% endif %} {% endwith %}
+            <ul class="list-group list-group-flush form-control">
+              <li class="list-group-item">
+                <label for="first_name" class="form-label">First Name:</label>
+                <input
+                  type="text"
+                  name="first_name"
+                  id="first_name"
+                  class="form-control"
+                  value="{{fname}}"
+                />
+              </li>
+              <li class="list-group-item" class="form-label">
+                <label for="last_name">Last Name:</label>
+                <input
+                  type="text"
+                  name="last_name"
+                  id="last_name"
+                  class="form-control"
+                  value="{{lname}}"
+                />
+              </li>
+              <li class="list-group-item" class="form-label">
+                <label for="email">Email:</label>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  class="form-control"
+                  value="{{email}}"
+                />
+              </li>
+              <li class="list-group-item">
+                <label for="inputPassword5" class="form-label">Password:</label>
+                <input
+                  type="password"
+                  name="password"
+                  id="inputPassword5"
+                  class="form-control"
+                  aria-describedby="passwordHelpBlock"
+                  value="{{password}}"
+                />
+              </li>
+              <li class="list-group-item">
+                <label for="inputPassword5" class="form-label"
+                  >Password Confirmation:</label
+                >
+                <input
+                  type="password"
+                  name="password_confirm"
+                  id="inputPassword5"
+                  class="form-control"
+                  aria-describedby="passwordHelpBlock"
+                  value="{{confirm_password}}"
+                />
+              </li>
+            </ul>
+            <input
+              type="submit"
+              class="btn btn-primary mt-3"
+              value="Register!"
+            />
+          </form>
         </div>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h4 class="card-title">Already A Member?  Login Here!</h4>
-                <form action="/login" method="post">
-                <ul class="list-group list-group-flush form-control">
-                    <li class="list-group-item" class="form-label">
-                        <label for="email">Email:</label>
-                        <input type="text" name="email" id="email" class="form-control">
-                    </li>
-                    <li class="list-group-item">
-                        <label for="inputPassword5" class="form-label">Password:</label>
-                        <input type="password" name="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
-                    </li>
-                </ul>
-                <input type="submit" class="btn btn-primary mt-3" value="Login!">
-                </form>
-            </div>
+      </div>
+      <div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h4 class="card-title">Already A Member? Login Here!</h4>
+          <form action="/login" method="post">
+            <ul class="list-group list-group-flush form-control">
+              <li class="list-group-item" class="form-label">
+                <label for="email">Email:</label>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  class="form-control"
+                />
+              </li>
+              <li class="list-group-item">
+                <label for="inputPassword5" class="form-label">Password:</label>
+                <input
+                  type="password"
+                  name="password"
+                  id="inputPassword5"
+                  class="form-control"
+                  aria-describedby="passwordHelpBlock"
+                />
+              </li>
+            </ul>
+            <input type="submit" class="btn btn-primary mt-3" value="Login!" />
+          </form>
         </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
