@@ -24,12 +24,22 @@ def register():
     if not User.validate_register(request.form):
         return redirect("/")
     user_id = User.create(data)
-    session["user_id"] = user_id
-    return redirect("/success")
+    session["user"] = user_id
+    return redirect(f"/success/{user_id}")
 
 
-@app.route("/success/<user_id>")
+@app.route("/success/<int:user_id>")
 def success(user_id):
     if user_id not in session:
-        return "Not so fast there, partner!  You haven't signed up yet!"
-    return render_template("success.html")
+        return "Invalid URL entered.  Please return to localhost:5000"
+    user = User.find_by_id({"id": user_id})
+    return render_template("success.html", user=user)
+
+@app.post("/login")
+def login():
+    
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return render_template("/")

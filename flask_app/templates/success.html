@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success!</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='quartz.css')}}"
+    />
+</head>
+<body>
+  <div class="container mx-auto">
+    <h1 class="text-center">Success!  Welcome, {{user.first_name}}!</h1>
+    <form action="/logout">
+      <input type="submit" class="btn btn-primary" value="Log Out">
+    </form>
+  </div>
+</body>
+</html>
