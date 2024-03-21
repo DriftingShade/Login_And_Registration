@@ -62,10 +62,14 @@ class User:
         lookup_email = User.find_by_email(user["email"])
         if lookup_email:
             lookup_pw = User.find_by_password(user["password"])
-            if lookup_pw:
-                return is_valid
-            else:
-                is_valid = False
+        elif not lookup_email:
+            flash("Email Not Found")
+        if lookup_pw:
+            return is_valid
+        else:
+            flash("Password is Incorrect")
+            is_valid = False
+        return is_valid
 
     @classmethod
     def create(cls, data):
