@@ -24,22 +24,30 @@ def register():
     if not User.validate_register(request.form):
         return redirect("/")
     user_id = User.create(data)
-    session["user"] = user_id
-    return redirect(f"/success/{user_id}")
+    session["user_id"] = user_id
+    return redirect("/success")
 
 
-@app.route("/success/<int:user_id>")
-def success(user_id):
-    if user_id not in session:
+@app.route("/success/")
+def success():
+    if "user_id" not in session:
         return "Invalid URL entered.  Please return to localhost:5000"
-    user = User.find_by_id({"id": user_id})
+    user = User.find_by_id({"id": session["user_id"]})
     return render_template("success.html", user=user)
+
 
 @app.post("/login")
 def login():
-    
+    if not User.validate_login(request.form):
+        return redirect("/")
+    pw_hash = bcrypt.generate_password_hash(request.form["password"])
+    print(pw_hash)
+    user_id = User.find_by_email(request.form["email"])
+    session["user_id"] = user_id
+    return redirect("/success")
+
 
 @app.route("/logout")
 def logout():
     session.clear()
-    return render_template("/")
+    return redirect("/")

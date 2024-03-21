@@ -15,12 +15,14 @@
         <div class="card-body">
           <h4 class="card-title">Not A Member? Register Here!</h4>
           <form action="/register" method="post">
-            {% with messages = get_flashed_messages(with_categories=true) %} 
-            {% if messages %} 
+            {% with messages = get_flashed_messages(with_categories=true) %} {%
+            if messages %}
             <ul class="flashes">
-            {% for category, message in messages %}
-            <li class="text-center {{Length, Capital, Special, Number}}">{{message}}</li>
-            {% endfor %}
+              {% for category, message in messages %}
+              <li class="text-center {{Length, Capital, Special, Number}}">
+                {{message}}
+              </li>
+              {% endfor %}
             </ul>
             {% endif %} {% endwith %}
             <ul class="list-group list-group-flush form-control">
@@ -86,6 +88,13 @@
         <div class="card-body">
           <h4 class="card-title">Already A Member? Login Here!</h4>
           <form action="/login" method="post">
+            {% with messages = get_flashed_messages() %} {% if messages %}
+            <ul class="flashes">
+              {% for message in messages %}
+              <li class="text-center">{{message}}</li>
+              {% endfor %}
+            </ul>
+            {% endif %} {% endwith %}
             <ul class="list-group list-group-flush form-control">
               <li class="list-group-item" class="form-label">
                 <label for="email">Email:</label>
