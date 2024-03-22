@@ -15,18 +15,14 @@
         <div class="card-body">
           <h4 class="card-title">Not A Member? Register Here!</h4>
           <form action="/register" method="post">
-            {% with messages = get_flashed_messages(with_categories=true) %} {%
-            if messages %}
-            <ul class="flashes">
-              {% for category, message in messages %}
-              <li class="text-center {{Length, Capital, Special, Number}}">
-                {{message}}
-              </li>
-              {% endfor %}
+            <ul>
+              {% with messages = get_flashed_messages(category_filter =
+              ["register"]) %} {% if messages %} {% for message in messages %}
+              <li class="list-group-item">{{ message }}</li>
+              {% endfor %} {% endif %} {% endwith %}
             </ul>
-            {% endif %} {% endwith %}
             <ul class="list-group list-group-flush form-control">
-              <li class="list-group-item">
+              <li class="list-group-item text-center">
                 <label for="first_name" class="form-label">First Name:</label>
                 <input
                   type="text"
@@ -88,13 +84,10 @@
         <div class="card-body">
           <h4 class="card-title">Already A Member? Login Here!</h4>
           <form action="/login" method="post">
-            {% with messages = get_flashed_messages() %} {% if messages %}
-            <ul class="flashes">
-              {% for message in messages %}
-              <li class="text-center">{{message}}</li>
-              {% endfor %}
-            </ul>
-            {% endif %} {% endwith %}
+            {% with messages = get_flashed_messages(category_filter = ["login"])
+            %} {% if messages %} {% for message in messages %}
+            <li class="list-group-item">{{ message }}</li>
+            {% endfor %} {% endif %} {% endwith %}
             <ul class="list-group list-group-flush form-control">
               <li class="list-group-item" class="form-label">
                 <label for="email">Email:</label>
@@ -121,5 +114,10 @@
         </div>
       </div>
     </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
