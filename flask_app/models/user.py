@@ -48,6 +48,12 @@ class User:
         elif len(user["password"].strip()) < 8:
             flash("Password must be at least 8 characters", "register")
             is_valid = False
+        elif not PASSWORD_REGEX.match(user["password"].strip()):
+            flash(
+                "Password must contain at least 1 capital letter, 1 number and 1 special character (!@#$)",
+                "register",
+            )
+            is_valid = False
         elif user["password"] != user["password_confirm"]:
             flash("Passwords do not match", "register")
             is_valid = False
